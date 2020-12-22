@@ -1,9 +1,8 @@
 from flask import *
-import persistence.repository.users as ur # Should be imported through a Business Layer, not directly
+import BI.user_controller as uc
 import json
 
 app = Flask(__name__)
-
 
 @app.route('/adduser/<fname>/<lname>')
 def adduser(fname, lname):
@@ -12,7 +11,7 @@ def adduser(fname, lname):
             'email': lname
     }
     try:
-        ur.add_user(userdata)
+        uc.add_user(userdata)
         return 'user successfully registered'
     except:
         return 'shit went sideways...'
@@ -62,6 +61,7 @@ def handler404(e):
 @app.errorhandler(500)
 def handler500(e):
     return render_template('500.html', error=e)
+
 
 @app.route('/')
 def index():

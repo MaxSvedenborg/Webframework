@@ -7,15 +7,15 @@ def get_all_users():
 
 
 def add_user(insert_dict):
-    return cf.add_row(User, insert_dict)
+    return cf.add(User, insert_dict)
 
 
-def get_columns():
-    return cf.get_columns(User)
+def get_resource():
+    return cf.get_resource(User)
 
 
 def main():
-    print(get_columns())
+    print(get_resource())
 
 
 if __name__ == "__main__":

@@ -4,6 +4,7 @@ import json
 
 app = Flask(__name__)
 
+
 @app.route('/adduser/<fname>/<lname>')
 def adduser(fname, lname):
     userdata = {

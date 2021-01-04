@@ -1,4 +1,5 @@
-from flask import *
+
+from flask import Flask, render_template, request, redirect, url_for
 import BI.user_controller as uc
 import json
 
@@ -52,6 +53,12 @@ def index_post():
 def users():
     name = request.args.get('name')
     return render_template('users.html', name=name)
+
+
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')
+
 
 
 @app.errorhandler(404)

@@ -84,5 +84,11 @@ def login():
 def register():
     return render_template('register_boot.html')
 
+
+@app.route('/reset_password')
+def reset_password():
+    return render_template('password_boot.html')
+
+
 if __name__ == '__main__':
     app.run()

@@ -1,5 +1,4 @@
-
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, url_for
 import BI.user_controller as uc
 import json
 
@@ -75,6 +74,15 @@ def handler500(e):
 def index():
     return 'Greetings group six!'
 
+
+@app.route('/login')
+def login():
+    return render_template('login_boot.html')
+
+
+@app.route('/register')
+def register():
+    return render_template('register_boot.html')
 
 if __name__ == '__main__':
     app.run()

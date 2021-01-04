@@ -77,12 +77,12 @@ def index():
 
 @app.route('/login')
 def login():
-    return render_template('login_boot.html')
+    return render_template('auth/login_boot.html')
 
 
 @app.route('/register')
 def register():
-    return render_template('register_boot.html')
+    return render_template('auth/register_boot.html')
 
 if __name__ == '__main__':
     app.run()

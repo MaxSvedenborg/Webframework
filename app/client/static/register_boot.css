@@ -1,0 +1,97 @@
+#playground-container {
+    height: 500px;
+    overflow: hidden !important;
+    -webkit-overflow-scrolling: touch;
+}
+body, html{
+     height: 100%;
+ 	background-repeat: no-repeat;
+ 	background:url(https://i.ytimg.com/vi/4kfXjatgeEU/maxresdefault.jpg);
+ 	font-family: 'Oxygen', sans-serif;
+    background-size: cover;
+}
+
+.main{
+ 	margin:50px 15px;
+}
+
+h1.title {
+	font-size: 50px;
+	font-family: 'Passion One', cursive;
+	font-weight: 400;
+}
+
+hr{
+	width: 30%;
+	color: #fff;
+}
+
+.form-group{
+	margin-bottom: 15px;
+}
+
+label{
+    margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.form-control {
+    height: auto!important;
+    padding: 8px 12px !important;
+
+}
+.input-group {
+    -webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.21)!important;
+    -moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.21)!important;
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.21)!important;
+    width: 100%;
+}
+
+#button {
+    [color: #fff]:hover;
+    cursor: pointer;
+    -moz-border-radius: 3px 3px;
+    background-color: #56baed;
+    border: none;
+    padding: 15px 80px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 13px;
+    -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+    box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+    margin-top: 15px;
+    margin-left: 4px;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.main-center{
+ 	margin-top: 30px;
+ 	position: center;
+ 	width: 460px;
+    padding: 10px 40px;
+	background:#009edf;
+	    color: #FFF;
+    text-shadow: none;
+	-webkit-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.31);
+    -moz-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.31);
+    box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.31);
+
+}
+span.input-group-addon i {
+    color: #009edf;
+    font-size: 17px;
+}
+
+.login-register{
+	font-size: 11px;
+	text-align: center;
+    color: #009edf;
+}

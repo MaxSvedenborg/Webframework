@@ -54,6 +54,12 @@ def users():
     return render_template('users.html', name=name)
 
 
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard/dashboard.html')
+
+
+
 @app.errorhandler(404)
 def handler404(e):
     return render_template('404.html', error=e)

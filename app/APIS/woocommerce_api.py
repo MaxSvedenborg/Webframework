@@ -12,8 +12,6 @@ wcapi = API(
 )
 
 
-# Fetch all orders from server
-# status options: pending, processing, on-hold, completed, cancelled, refunded, failed and trash. Default is pending.
 def fetch_all_orders(status, after = '1979-11-09T00:00:00', before = datetime.now()):
     """ Fetches all orders
 
@@ -25,8 +23,7 @@ def fetch_all_orders(status, after = '1979-11-09T00:00:00', before = datetime.no
     Returns:
     list:Returning a list of all orders
 
-   """
-    ''' Fetches orders based on status; ending, processing, on-hold, completed, cancelled, refunded, failed and trash '''
+    """
     print(f"Fetching all {status} orders between {after} and {before}")
     all_orders = []
     fetching = True

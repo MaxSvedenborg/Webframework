@@ -1,4 +1,5 @@
 from APIS import woocommerce_api as wapi
+from utilities import *
 
 
 def one_day(status, after):
@@ -16,12 +17,6 @@ def one_day(status, after):
     return wapi.fetch_all_orders(status, after)
 
 
-def print_dict(my_dict):
-    for key, value in my_dict.items():
-        print(f'{key}: {value}')
-
-def divider():
-    print('-' * 150)
 
 def main():
     status = 'completed'

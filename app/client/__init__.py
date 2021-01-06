@@ -47,11 +47,17 @@ def index_post():
     )
     return response
 
-
+# just a demo for adding a user with requests args.
 @app.route('/thisuser')
 def users():
     name = request.args.get('name')
     return render_template('users.html', name=name)
+
+
+@app.route('/')
+def index():
+    return 'Greetings group six!'
+
 
 
 @app.route('/dashboard')
@@ -59,20 +65,15 @@ def dashboard():
     return render_template('dashboard/dashboard.html')
 
 
-
-@app.errorhandler(404)
-def handler404(e):
-    return render_template('404.html', error=e)
-
-
-@app.errorhandler(500)
-def handler500(e):
-    return render_template('500.html', error=e)
+@app.route('/sites')
+def sites():
+    return render_template('add_site.html')
 
 
-@app.route('/')
-def index():
-    return 'Greetings group six!'
+@app.route('/account')
+def account():
+    return render_template('account_settings.html')
+
 
 
 @app.route('/login')
@@ -88,6 +89,18 @@ def register():
 @app.route('/reset_password')
 def reset_password():
     return render_template('password_boot.html')
+
+
+
+@app.errorhandler(404)
+def handler404(e):
+    return render_template('404.html', error=e)
+
+
+@app.errorhandler(500)
+def handler500(e):
+    return render_template('500.html', error=e)
+
 
 
 if __name__ == '__main__':

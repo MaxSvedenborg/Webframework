@@ -42,7 +42,7 @@ def date_sequence(date1, date2):
     date = date1
     while i <= delta.days:
         d1, d2 = nextdate(date, 0)
-        dates = (d1, d2) #repl i for date pairs
+        dates = (d1, d2)
         sequence.append(dates)
         nextday = date.day + 1
         date = date.replace(day=nextday)

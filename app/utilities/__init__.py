@@ -42,20 +42,19 @@ def date_sequence(date1, date2):
     date = date1
     while i <= delta.days:
         d1, d2 = nextdate(date, 0)
-        dates = (d1, d2) #repl i for date pairs
+        dates = (d1, d2)
         sequence.append(dates)
-        nextday = date.day + 1
-        date = date.replace(day=nextday)
+        date += timedelta(days=1)
         i += 1
     return sequence
 
 
 def main():
     date = datetime.now()
-    d1, d2 = nextdate(date, 5)
+    d1, d2 = nextdate(date, 3)
     diff = date_sequence(d1, d2)
     for dateseq in diff:
-        print(dateseq)
+        print(dateseq[0], '-', dateseq[1])
 
 
 if __name__ == '__main__':

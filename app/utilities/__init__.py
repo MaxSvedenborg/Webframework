@@ -21,13 +21,14 @@ def nextdate(date1, span=1):
     """
     d1 = date1.replace(hour=0, minute=0, second=0, microsecond=0)
     d2 = d1 + timedelta(days=span)
-    d2 = date1.replace(hour=23, minute=59, second=59, microsecond=0)
+    d2 = d2.replace(hour=23, minute=59, second=59, microsecond=0)
     return d1, d2
 
 
-def date_sequence(date1,date2):
+def date_sequence(date1, date2):
     """
-    Creates a time series as a list of tuples where each date is a binary set starting at 00:00:00 and ends inn 23:59:59
+    Creates a sequence as a list of tuples where each tuple is a set of
+    date objects starting at X-X-X 00:00:00 and ends at Y-Y-Y 23:59:59
     :param date1: datetime object
     :param date2: datetime object
     :return: list of tuples
@@ -35,11 +36,26 @@ def date_sequence(date1,date2):
     # calculate the number of days between the dates
     # loop through sequence and add each tuple to a list
     # return the list
+    delta = date2 - date1
+    sequence = []
+    i = 1
+    date = date1
+    while i <= delta.days:
+        d1, d2 = nextdate(date, 0)
+        dates = (d1, d2) #repl i for date pairs
+        sequence.append(dates)
+        nextday = date.day + 1
+        date = date.replace(day=nextday)
+        i += 1
+    return sequence
 
 
 def main():
     date = datetime.now()
-    print(nextdate(date, 1))
+    d1, d2 = nextdate(date, 5)
+    diff = date_sequence(d1, d2)
+    for dateseq in diff:
+        print(dateseq)
 
 
 if __name__ == '__main__':

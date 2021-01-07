@@ -1,6 +1,7 @@
 from APIS.config import *
 from datetime import datetime
 from woocommerce import API
+from utilities import *
 
 # DOCS: https://woocommerce.github.io/woocommerce-rest-api-docs/?python#introduction
 
@@ -47,11 +48,6 @@ def fetch_all_orders(status, after = '1979-11-09T00:00:00', before = datetime.no
 
             print(f'Page @ {data["page"]} | {len(all_orders)}')
             data['page'] += 1
-
-
-def print_dict(my_dict):
-    for key, value in my_dict.items():
-        print(f'{key}: {value}')
 
 
 def main():

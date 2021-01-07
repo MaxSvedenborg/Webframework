@@ -17,7 +17,6 @@ def one_day(status, after):
     return wapi.fetch_all_orders(status, after)
 
 
-
 def main():
     status = 'completed'
     after = '2021-01-04T00:00:00'

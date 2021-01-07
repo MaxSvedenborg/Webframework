@@ -33,9 +33,6 @@ def date_sequence(date1, date2):
     :param date2: datetime object
     :return: list of tuples
     """
-    # calculate the number of days between the dates
-    # loop through sequence and add each tuple to a list
-    # return the list
     delta = date2 - date1
     sequence = []
     i = 1

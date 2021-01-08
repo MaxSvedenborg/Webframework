@@ -17,21 +17,50 @@ class LoginForm(FlaskForm):
     remember = BooleanField('Remember me')
 
 
+class RegisterForm(FlaskForm):
+    first_name = StringField('First Name', validators=[InputRequired(), Length(min=2, max=50)])
+    last_name = StringField('Last Name', validators=[InputRequired(), Length(min=2, max=50)])
+    email = StringField('Email Address', validators=[InputRequired(), Email(message='Invalid email'), Length(min=2, max=50)])
+    username = StringField('Username', validators=[InputRequired(), Length(min=4, max=15)])
+    password = PasswordField('Password', validators=[InputRequired(), Length(min=8)])
+
+
 @app.route('/')
 def index():
     data = 'home'
     return render_template('index.html', data=data)
 
 
+@app.route('/register', methods=['GET', 'POST'])
+def auth():
+    form = RegisterForm()
+    if form.validate_on_submit():
+        #create user data
+        #commit to db
+        userdata = {
+            'first_name': form.first_name.data,
+            'last_name': form.last_name.data,
+            'username': form.username.data,
+            'email': form.email.data,
+            'password': form.password.data
+        }
+        try:
+            uc.add_user(userdata)
+            return 'user successfully registered'
+        except:
+            return redirect(url_for('login'))
+    return render_template('auth/register.html', form=form)
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        pass
+        return form.username.data
         # Check if user exists
         # If user exists redirect to in-page
         # else throw auth error / redir
-    return render_template('templates/auth/temp_login.html', form=form)
+    return render_template('auth/temp_login.html', form=form)
 
 
 @app.route('/adduser/<fname>/<lname>')
@@ -80,7 +109,7 @@ def index_post():
 @app.route('/thisuser')
 def users():
     name = request.args.get('name')
-    return render_template('templates/users.html', name=name)
+    return render_template('users.html', name=name)
 
 
 @app.route('/dashboard')
@@ -104,9 +133,9 @@ def account():
 #     return render_template('auth/login_boot.html')
 
 
-@app.route('/register')
-def register():
-    return render_template('auth/register_boot.html')
+#@app.route('/register')
+#def register():
+#    return render_template('auth/register_boot.html')
 
 
 @app.route('/reset_password')

@@ -1,5 +1,4 @@
 from APIS.config import *
-from datetime import datetime
 from woocommerce import API
 from utilities import *
 
@@ -13,6 +12,22 @@ wcapi = API(
 )
 
 
+def fetch_last_order(status):
+    """ Fetches last order
+    Parameters:
+    status (str): pending, processing, on-hold, completed, cancelled or refunded
+    Returns:
+    datetime string
+    """
+    data = {
+        "page": 1,
+        "per_page": 1,
+        "status": status
+    }
+    last_order = wcapi.get("orders/", params=data).json()
+    return last_order
+
+
 def fetch_all_orders(status, after = '1979-11-09T00:00:00', before = datetime.now()):
     """ Fetches all orders
 
@@ -22,7 +37,7 @@ def fetch_all_orders(status, after = '1979-11-09T00:00:00', before = datetime.no
     before (str): datetimeformat as '1979-11-09T00:00:00', default datetime.now()
 
     Returns:
-    list:Returning a list of all orders
+    list:Returning a list of all orders as dicts
 
     """
     print(f"Fetching all {status} orders between {after} and {before}")
@@ -48,6 +63,13 @@ def fetch_all_orders(status, after = '1979-11-09T00:00:00', before = datetime.no
 
             print(f'Page @ {data["page"]} | {len(all_orders)}')
             data['page'] += 1
+
+
+def products():
+    """ Fetched all products from host
+       Returns: list of products as dicts
+    """
+    return wcapi.get("products/?per_page=100").json()
 
 
 def main():

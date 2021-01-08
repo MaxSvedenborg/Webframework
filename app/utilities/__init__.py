@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 
-# Various helper functions. Formating, datetime helpers etc.
+# Various helper functions. Formatting, datetime helpers etc.
 
 
 def print_dict(my_dict):
@@ -48,7 +48,7 @@ def date_sequence(date1, date2):
 
 def main():
     date = datetime.now()
-    d1, d2 = nextdate(date, 3)
+    d1, d2 = nextdate(date, 90)
     diff = date_sequence(d1, d2)
     for dateseq in diff:
         print(dateseq[0], '-', dateseq[1])

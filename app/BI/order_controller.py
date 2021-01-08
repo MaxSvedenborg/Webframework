@@ -69,7 +69,6 @@ def main():
     #     ut.print_dict(order)
     #     ut.divider()
 
-
     products = fetch_product_categories()
     for p in products:
         print(p)

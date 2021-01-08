@@ -1,8 +1,37 @@
-from flask import Flask, render_template, request, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
+from flask_login import UserMixin, current_user, login_required
 import BI.user_controller as uc
 import json
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, BooleanField
+from wtforms.validators import InputRequired, Length, Email
+import client.config as config
 
 app = Flask(__name__)
+app.config.from_object(config)
+
+
+class LoginForm(FlaskForm):
+    username = StringField('Username', validators=[InputRequired(), Length(min=4, max=15)])
+    password = PasswordField('Password', validators=[InputRequired(), Length(min=8)])
+    remember = BooleanField('Remember me')
+
+
+@app.route('/')
+def index():
+    data = 'home'
+    return render_template('index.html', data=data)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        pass
+        # Check if user exists
+        # If user exists redirect to in-page
+        # else throw auth error / redir
+    return render_template('templates/auth/temp_login.html', form=form)
 
 
 @app.route('/adduser/<fname>/<lname>')
@@ -19,7 +48,7 @@ def adduser(fname, lname):
 
 
 # post form data
-@app.route('/postman', methods=['POST'])
+@app.route('/adduser', methods=['POST'])
 def postman():
     fname = request.form.get('first')
     lname = request.form.get('last')
@@ -51,13 +80,7 @@ def index_post():
 @app.route('/thisuser')
 def users():
     name = request.args.get('name')
-    return render_template('users.html', name=name)
-
-
-@app.route('/')
-def index():
-    return 'Greetings group six!'
-
+    return render_template('templates/users.html', name=name)
 
 
 @app.route('/dashboard')
@@ -75,10 +98,10 @@ def account():
     return render_template('account_settings.html')
 
 
-
-@app.route('/login')
-def login():
-    return render_template('auth/login_boot.html')
+#
+# @app.route('/login')
+# def login():
+#     return render_template('auth/login_boot.html')
 
 
 @app.route('/register')

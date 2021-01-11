@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, redirect, url_for, session
-from flask_login import UserMixin, current_user, login_required
 import BI.user_controller as uc
 import json
 from flask_wtf import FlaskForm
@@ -20,7 +19,8 @@ class LoginForm(FlaskForm):
 class RegisterForm(FlaskForm):
     first_name = StringField('First Name', validators=[InputRequired(), Length(min=2, max=50)])
     last_name = StringField('Last Name', validators=[InputRequired(), Length(min=2, max=50)])
-    email = StringField('Email Address', validators=[InputRequired(), Email(message='Invalid email'), Length(min=2, max=50)])
+    email = StringField('Email Address',
+                        validators=[InputRequired(), Email(message='Invalid email'), Length(min=2, max=50)])
     username = StringField('Username', validators=[InputRequired(), Length(min=4, max=15)])
     password = PasswordField('Password', validators=[InputRequired(), Length(min=8)])
 
@@ -35,8 +35,8 @@ def index():
 def auth():
     form = RegisterForm()
     if form.validate_on_submit():
-        #create user data
-        #commit to db
+        # create user data
+        # commit to db
         userdata = {
             'first_name': form.first_name.data,
             'last_name': form.last_name.data,
@@ -44,11 +44,10 @@ def auth():
             'email': form.email.data,
             'password': form.password.data
         }
-        try:
-            uc.add_user(userdata)
-            return 'user successfully registered'
-        except:
-            return redirect(url_for('login'))
+
+        uc.create_user(userdata)
+        return 'all good'
+
     return render_template('auth/register.html', form=form)
 
 
@@ -63,15 +62,16 @@ def login():
     return render_template('auth/temp_login.html', form=form)
 
 
-@app.route('/adduser/<fname>/<lname>')
-def adduser(fname, lname):
+@app.route('/adduser/<email>/<password>')
+def adduser(email, password):
     userdata = {
-            'name': fname,
-            'email': lname
+        'email': email,
+        'password': password
     }
     try:
-        uc.add_user(userdata)
-        return 'user successfully registered'
+        user = uc.create_user(userdata)
+        user.save()
+        return user
     except:
         return 'shit went sideways...'
 
@@ -79,9 +79,9 @@ def adduser(fname, lname):
 # post form data
 @app.route('/adduser', methods=['POST'])
 def postman():
-    fname = request.form.get('first')
-    lname = request.form.get('last')
-    return f'Hello {fname} {lname}'
+    email = request.form.get('email')
+    password = request.form.get('password')
+    return f'Email; {email} - Password: {password}'
 
 
 # post json
@@ -104,6 +104,7 @@ def index_post():
         mimetype='application/json'
     )
     return response
+
 
 # just a demo for adding a user with requests args.
 @app.route('/thisuser')
@@ -133,15 +134,14 @@ def account():
 #     return render_template('auth/login_boot.html')
 
 
-#@app.route('/register')
-#def register():
+# @app.route('/register')
+# def register():
 #    return render_template('auth/register_boot.html')
 
 
 @app.route('/reset_password')
 def reset_password():
     return render_template('password_boot.html')
-
 
 
 @app.errorhandler(404)
@@ -152,7 +152,6 @@ def handler404(e):
 @app.errorhandler(500)
 def handler500(e):
     return render_template('500.html', error=e)
-
 
 
 if __name__ == '__main__':

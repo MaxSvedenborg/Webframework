@@ -1,22 +1,11 @@
-from persistence.mongo_models import *
-import persistence.repository.crud_functions as cf
+from persistence.models.users import *
 
 
-def get_all_users():
-    return cf.get_all_assets(User)
-
-
-def add_user(insert_dict):
-    return cf.add(User, insert_dict)
-
-
-def get_resource():
-    return cf.get_resource(User)
-
-
-def main():
-    print(get_resource())
-
-
-if __name__ == "__main__":
-    main()
+def create_user(data):
+    user = User(email=data['email'])
+    user.password = data['password']
+    user.username = data['username']
+    user.first_name = data['first_name']
+    user.last_name = data['last_name']
+    user.save()
+    return user

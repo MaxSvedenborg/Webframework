@@ -1,5 +1,5 @@
 from persistence.repository import users as ur
 
 
-def add_user(user_data):
-    ur.add_user(user_data)
+def create_user(user_data):
+    ur.create_user(user_data)

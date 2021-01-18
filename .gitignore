@@ -1,0 +1,7 @@
+/venv
+.idea/
+/app/persistence/db_settings.py
+*pycache/
+*.pyc
+APIS/config/
+/app/client/config.py
